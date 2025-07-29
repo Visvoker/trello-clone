@@ -49,7 +49,7 @@ export default function Sidebar({
     }));
   };
 
-  if (isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
+  if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
         <div className="flex items-center justify-between mb-2">

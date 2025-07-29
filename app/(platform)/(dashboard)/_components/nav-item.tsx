@@ -64,7 +64,7 @@ export function NavItem({
   };
 
   return (
-    <AccordionItem value={organization.id} className="">
+    <AccordionItem value={organization.id} className="border-none">
       <AccordionTrigger
         onClick={() => onExpand(organization.id)}
         className={cn(
@@ -91,13 +91,15 @@ export function NavItem({
             size="sm"
             onClick={() => onClick(route.href)}
             className={cn(
-              "w-full font-normal justify-start pl-10 mb-1",
+              "w-full font-normal justify-start mb-1",
               pathname === route.href && "bg-sky-500/10 text-sky-700"
             )}
             variant="ghost"
           >
-            {route.icon}
-            {route.label}
+            <div className="pl-10 flex items-center justify-center">
+              {route.icon}
+              {route.label}
+            </div>
           </Button>
         ))}
       </AccordionContent>
