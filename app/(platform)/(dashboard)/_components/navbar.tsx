@@ -5,6 +5,7 @@ import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 
 import MobileSidebar from "./mobile-sidebar";
+import FormPopover from "@/components/form/form-popover";
 
 export default function Navbar() {
   return (
@@ -14,13 +15,15 @@ export default function Navbar() {
         <div className="hidden md:flex">
           <Logo />
         </div>
-        <Button
-          size="sm"
-          variant="primary"
-          className="rounded-sm hidden md:block h-auto py-1.5 px-2"
-        >
-          Create
-        </Button>
+        <FormPopover align="start" side="bottom" sideOffset={18}>
+          <Button
+            size="sm"
+            variant="primary"
+            className="rounded-sm hidden md:block h-auto py-1.5 px-2"
+          >
+            Create
+          </Button>
+        </FormPopover>
         <Button
           size="sm"
           variant="primary"
