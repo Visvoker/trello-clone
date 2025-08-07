@@ -39,6 +39,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     ref
   ) => {
     const { pending } = useFormStatus();
+
     return (
       <div className="space-y-2">
         <div className="space-y-1">
