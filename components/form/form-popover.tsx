@@ -1,6 +1,6 @@
 "use client";
 
-import { ElementRef, useRef } from "react";
+import { useRef } from "react";
 import { toast } from "sonner";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,7 @@ export default function FormPopover({
   align,
   sideOffset = 0,
 }: FormPopoverProps) {
-  const closeRef = useRef<ElementRef<"button">>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
   const { execute, fieldErrors } = useAction(createBoard, {
