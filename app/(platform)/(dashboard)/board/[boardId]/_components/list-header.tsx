@@ -1,12 +1,14 @@
 "use client";
 
+import { useState, useRef, KeyboardEvent } from "react";
+import { toast } from "sonner";
+import { useEventListener } from "usehooks-ts";
+
 import { updateList } from "@/actions/update-list";
 import { FormInput } from "@/components/form/form-input";
 import { useAction } from "@/hooks/use-action";
 import { List } from "@/lib/generated/prisma";
-import { useState, useRef, KeyboardEvent } from "react";
-import { toast } from "sonner";
-import { useEventListener } from "usehooks-ts";
+import ListOptions from "./list-options";
 
 type ListHeaderProps = {
   data: List;
@@ -86,6 +88,7 @@ export default function ListHeader({ data }: ListHeaderProps) {
           {title}
         </div>
       )}
+      <ListOptions data={data} onAddCard={() => {}} />
     </div>
   );
 }
