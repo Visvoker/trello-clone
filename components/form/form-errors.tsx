@@ -6,7 +6,7 @@ type FormErrors = {
   errors?: Record<string, string[] | undefined>;
 };
 
-export default function FormErrors({ id, errors }: FormErrors) {
+export function FormErrors({ id, errors }: FormErrors) {
   if (!errors) {
     return null;
   }
