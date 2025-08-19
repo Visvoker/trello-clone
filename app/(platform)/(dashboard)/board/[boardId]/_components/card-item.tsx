@@ -1,33 +1,17 @@
-"use client";
+import { Card } from "@/lib/generated/prisma";
 
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { forwardRef } from "react";
-
-type CardFormProps = {
-  listId: string;
-  enableEditing: () => void;
-  disableEditing: () => void;
-  isEditing: boolean;
+type CardItemProps = {
+  data: Card;
+  index: number;
 };
 
-export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
-  ({ listId, enableEditing, disableEditing, isEditing }, ref) => {
-    return (
-      <div className="pt-2 px-2">
-        <Button
-          onClick={enableEditing}
-          className="h-auto px-2 py-1.5 w-full justify-start text-muted-foreground text-sm"
-          size="sm"
-          variant="ghost"
-        >
-          {" "}
-          <Plus className="h-4 w-4 mr-2" />
-          Add a card
-        </Button>
-      </div>
-    );
-  }
-);
-
-CardForm.displayName = "CardForm";
+export default function CardItem({ data, index }: CardItemProps) {
+  return (
+    <div
+      role="button"
+      className="truncate border-2 border-transparent hover:border-black py-2 px-3 text-sm bg-white rounded-md shadow-sm"
+    >
+      {data.title}
+    </div>
+  );
+}

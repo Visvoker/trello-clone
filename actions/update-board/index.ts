@@ -9,7 +9,7 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { UpdateBoard } from "./schema";
 import { InputType, ReturnType } from "./type";
 
-export const handler = async (data: InputType): Promise<ReturnType> => {
+const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = await auth();
 
   if (!userId || !orgId) {

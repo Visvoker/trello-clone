@@ -10,7 +10,7 @@ import { DeleteBoard } from "./schema";
 import { InputType, ReturnType } from "./type";
 import { redirect } from "next/navigation";
 
-export const handler = async (data: InputType): Promise<ReturnType> => {
+const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = await auth();
 
   if (!userId || !orgId) {
