@@ -7,8 +7,9 @@ import BoardNavbar from "./_components/board-navbar";
 export async function generateMetadata({
   params,
 }: {
-  params: { boardId: string };
+  params: Promise<{ boardId: string }>;
 }) {
+  const { boardId } = await params;
   const { orgId } = await auth();
 
   if (!orgId) {
@@ -19,7 +20,7 @@ export async function generateMetadata({
 
   const board = await db.board.findUnique({
     where: {
-      id: params.boardId,
+      id: boardId,
       orgId,
     },
   });
@@ -34,8 +35,9 @@ export default async function BoardIdLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { boardId: string };
+  params: Promise<{ boardId: string }>;
 }) {
+  const { boardId } = await params;
   const { orgId } = await auth();
 
   if (!orgId) {
@@ -44,7 +46,7 @@ export default async function BoardIdLayout({
 
   const board = await db.board.findUnique({
     where: {
-      id: params.boardId,
+      id: boardId,
       orgId,
     },
   });

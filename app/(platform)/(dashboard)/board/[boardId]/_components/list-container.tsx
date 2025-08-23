@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { ListWithCards } from "@/type";
+import { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 
 import ListForm from "./list-form";
 import ListItem from "./list-item";
+
+import { useAction } from "@/hooks/use-action";
+import { updateListOrder } from "@/actions/update-list-order";
+import { updateCardOrder } from "@/actions/update-card-order";
 
 type ListContainerProps = {
   boardId: string;
@@ -22,6 +27,24 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
 
 export default function ListContainer({ boardId, data }: ListContainerProps) {
   const [orderedData, setOrderedData] = useState(data);
+
+  const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onSuccess: () => {
+      toast.success("List reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+    onSuccess: () => {
+      toast.success("Card reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
 
   useEffect(() => {
     setOrderedData(data);
@@ -49,8 +72,8 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
       );
 
       setOrderedData(items);
+      executeUpdateListOrder({ items, boardId });
     }
-    // TODO:Trigger server action
 
     // User moves a card
     if (type === "card") {
@@ -93,7 +116,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
         sourceList.cards = reorderedCards;
 
         setOrderedData(newOrderedData);
-        // TODO:Trigger server action
+        executeUpdateCardOrder({ items: reorderedCards, boardId: boardId });
         // User moves the card to another list
       } else {
         // Remove card from the source list
@@ -115,7 +138,10 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
         });
 
         setOrderedData(newOrderedData);
-        // TODO:Trigger server action
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: destList.cards,
+        });
       }
     }
   };
