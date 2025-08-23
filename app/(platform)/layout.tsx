@@ -1,6 +1,8 @@
+import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 
-import { Toaster } from "sonner";
+import { ModalProvider } from "@/components/provider/modal-provider";
+import { QueryProvider } from "@/components/provider/query-provider";
 
 export default function PlatformLayout({
   children,
@@ -9,8 +11,11 @@ export default function PlatformLayout({
 }) {
   return (
     <ClerkProvider>
-      <Toaster />
-      {children}
+      <QueryProvider>
+        <Toaster />
+        <ModalProvider />
+        {children}
+      </QueryProvider>
     </ClerkProvider>
   );
 }
