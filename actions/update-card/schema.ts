@@ -11,6 +11,7 @@ export const UpdateCard = z.object({
     .string({ error: "Title 必須是字串" })
     .trim()
     .min(1, { message: "Title is required" })
-    .min(3, { message: "Title is too short." }),
+    .min(3, { message: "Title is too short." })
+    .optional(),
   id: z.string(),
 });

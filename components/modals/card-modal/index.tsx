@@ -9,6 +9,7 @@ import { useCardModal } from "@/hooks/use-card-modal";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Header from "./header";
+import Description from "./description";
 
 export function CardModal() {
   const id = useCardModal((state) => state.id);
@@ -27,6 +28,17 @@ export function CardModal() {
           <DialogTitle>Title</DialogTitle>
         </VisuallyHidden>
         {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
+        <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
+          <div className="col-span-3">
+            <div className="w-full space-y-6">
+              {!cardData ? (
+                <Description.skeleton />
+              ) : (
+                <Description data={cardData} />
+              )}
+            </div>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
