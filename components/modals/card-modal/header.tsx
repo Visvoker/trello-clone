@@ -1,9 +1,12 @@
 "use client";
 
+import { toast } from "sonner";
 import { Layout } from "lucide-react";
 import { CardWithList } from "@/type";
 import { useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import { useAction } from "@/hooks/use-action";
+import { updateCard } from "@/actions/update-card";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { FormInput } from "@/components/form/form-input";
@@ -17,6 +20,19 @@ export default function Header({ data }: HeaderProps) {
   const queryClient = useQueryClient();
   const params = useParams();
 
+  const { execute } = useAction(updateCard, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["card", data.id],
+      });
+      toast.success(`Renamed to "${data.title}"`);
+      setTitle(data.title);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [title, setTitle] = useState(data?.title);
@@ -26,8 +42,20 @@ export default function Header({ data }: HeaderProps) {
   };
 
   const onSubmit = (formData: FormData) => {
-    console.log(formData.get("title"));
+    const title = formData.get("title") as string;
+    const boardId = params.boardId as string;
+
+    if (title === data.title) {
+      return;
+    }
+
+    execute({
+      title,
+      boardId,
+      id: data.id,
+    });
   };
+
   return (
     <div className="flex items-start gap-x-3 mb-6 w-full">
       <Layout className="h-5 w-5 mt-1 text-neutral-700" />
