@@ -1,22 +1,22 @@
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-
 import { db } from "@/lib/db";
 
 export async function GET(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { cardId: string } }
 ) {
   try {
+    const { cardId } = params;
     const { userId, orgId } = await auth();
 
     if (!userId || !orgId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const card = await db.card.findUnique({
+    const card = await db.card.findFirst({
       where: {
-        id: params.cardId,
+        id: cardId,
         list: {
           board: {
             orgId,
@@ -32,8 +32,13 @@ export async function GET(
       },
     });
 
+    if (!card) {
+      return new NextResponse("Not found", { status: 404 });
+    }
+
     return NextResponse.json(card);
   } catch (error) {
+    console.error("[CARD_GET]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
