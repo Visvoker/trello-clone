@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { useAction } from "@/hooks/use-action";
 import { Button } from "@/components/ui/button";
-import { deleteList } from "@/actions/delete-list";
+import { deleteList } from "@/actions/delete-card";
 import { Separator } from "@/components/ui/separator";
 import FormSubmit from "@/components/form/form-submit";
 import { copyList } from "@/actions/copy-list";

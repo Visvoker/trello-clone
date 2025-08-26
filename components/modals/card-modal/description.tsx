@@ -85,6 +85,12 @@ export default function Description({ data }: DescriptionProps) {
               placeholder="Add a more detailed description"
               defaultValue={data.description || undefined}
               errors={fieldErrors}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  formRef.current?.requestSubmit();
+                }
+              }}
             />
             <div className="flex items-center gap-x-2">
               <FormSubmit>Save</FormSubmit>
