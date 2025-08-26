@@ -10,6 +10,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Header from "./header";
 import Description from "./description";
+import { Actions } from "./actions";
 
 export function CardModal() {
   const id = useCardModal((state) => state.id);
@@ -38,6 +39,7 @@ export function CardModal() {
               )}
             </div>
           </div>
+          {!cardData ? <Actions.Skeleton /> : <Actions data={cardData} />}
         </div>
       </DialogContent>
     </Dialog>
