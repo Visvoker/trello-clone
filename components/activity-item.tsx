@@ -8,7 +8,7 @@ type ActivityItemProps = {
   data: AuditLog;
 };
 
-export default function ActivityItem({ data }: ActivityItemProps) {
+export function ActivityItem({ data }: ActivityItemProps) {
   return (
     <li className="flex items-center gap-x-2">
       <Avatar className="h-8 w-8">

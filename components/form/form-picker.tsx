@@ -7,7 +7,7 @@ import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { unsplash } from "@/lib/unsplash";
 import { randomImages } from "@/constants/images";
-import FormErrors from "./form-errors";
+import { FormErrors } from "./form-errors";
 
 type FormPickerProps = {
   id: string;
