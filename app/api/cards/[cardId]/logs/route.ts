@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { ENTITY_TYPE } from "@/lib/generated/prisma";
 
 import { db } from "@/lib/db";
 
 export async function GET(
-  request: Request,
-  context: { params: { cardId: string } }
+  req: NextRequest,
+  context: { params: Promise<{ cardId: string }> }
 ) {
   try {
-    const { cardId } = context.params;
+    const { cardId } = await context.params;
     const { userId, orgId } = await auth();
 
     if (!userId || !orgId) {
