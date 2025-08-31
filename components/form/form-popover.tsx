@@ -18,6 +18,7 @@ import { createBoard } from "@/actions/create-board";
 import FormSubmit from "./form-submit";
 import FormPicker from "./form-picker";
 import { FormInput } from "./form-input";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 type FormPopoverProps = {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export default function FormPopover({
   align,
   sideOffset = 0,
 }: FormPopoverProps) {
+  const proModal = useProModal();
   const closeRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
@@ -43,12 +45,13 @@ export default function FormPopover({
     },
     onError: (error) => {
       toast.error(error);
+      proModal.onOpen();
     },
   });
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
-    const image = formData.get("image") as string;
+    const image = formData.get("image")?.toString() ?? "";
 
     execute({ title, image });
   };
