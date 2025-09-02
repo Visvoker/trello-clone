@@ -1,14 +1,30 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { useProModal } from "@/hooks/use-pro-modal";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useAction } from "@/hooks/use-action";
+import { stripeRedirect } from "@/actions/stripe-redirect";
 
 export default function ProModal() {
   const proModal = useProModal();
+
+  const { execute, isLoading } = useAction(stripeRedirect, {
+    onSuccess: (data) => {
+      window.location.href = data;
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onClick = () => {
+    execute({});
+  };
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent className="">
@@ -34,7 +50,12 @@ export default function ProModal() {
               <li>And more!</li>
             </ul>
           </div>
-          <Button className="w-full" variant="primary">
+          <Button
+            className="w-full"
+            variant="primary"
+            disabled={isLoading}
+            onClick={onClick}
+          >
             Upgrade
           </Button>
         </div>
