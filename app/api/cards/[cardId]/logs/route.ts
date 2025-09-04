@@ -6,10 +6,10 @@ import { db } from "@/lib/db";
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ cardId: string }> }
+  { params }: { params: Promise<{ cardId: string }> }
 ) {
   try {
-    const { cardId } = await context.params;
+    const { cardId } = await params;
     const { userId, orgId } = await auth();
 
     if (!userId || !orgId) {

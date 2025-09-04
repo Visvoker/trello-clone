@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { cardId: string } }
+  { params }: { params: Promise<{ cardId: string }> }
 ) {
   try {
-    const { cardId } = params;
+    const { cardId } = await params;
     const { userId, orgId } = await auth();
 
     if (!userId || !orgId) {
