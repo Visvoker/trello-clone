@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/form/form-input";
 import { useAction } from "@/hooks/use-action";
 import { updateBoard } from "@/actions/update-board";
-import { set } from "lodash";
 
 type BoardTitleFormProps = {
   data: Board;

@@ -11,6 +11,16 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // 👉 忽略不要掃的資料夾（含 Prisma 生成）
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/.next/**",
+      "lib/generated/**", // 這裡是你出錯的位置
+      "prisma/generated/**", // 若你有這個目錄也一起忽略
+    ],
+  },
 ];
 
 export default eslintConfig;

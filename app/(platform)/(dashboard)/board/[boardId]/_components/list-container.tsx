@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import { ListWithCards } from "@/type";
 import { useEffect, useState } from "react";
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 
 import ListForm from "./list-form";
 import ListItem from "./list-item";
@@ -50,7 +50,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
     setOrderedData(data);
   }, [data]);
 
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
 
     if (!destination) {
@@ -77,7 +77,7 @@ export default function ListContainer({ boardId, data }: ListContainerProps) {
 
     // User moves a card
     if (type === "card") {
-      let newOrderedData = [...orderedData];
+      const newOrderedData = [...orderedData];
 
       // Source and destination list
       const sourceList = newOrderedData.find(

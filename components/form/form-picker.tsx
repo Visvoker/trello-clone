@@ -9,6 +9,20 @@ import { unsplash } from "@/lib/unsplash";
 import { randomImages } from "@/constants/images";
 import { FormErrors } from "./form-errors";
 
+type UnsplashImage = {
+  id: string;
+  urls: {
+    thumb: string;
+    full: string;
+  };
+  links: {
+    html: string;
+  };
+  user: {
+    name: string;
+  };
+};
+
 type FormPickerProps = {
   id: string;
   errors?: Record<string, string[] | undefined>;
@@ -17,10 +31,9 @@ type FormPickerProps = {
 export default function FormPicker({ id, errors }: FormPickerProps) {
   const { pending } = useFormStatus();
 
-  const [images, setImages] =
-    useState<Array<Record<string, any>>>(randomImages);
+  const [images, setImages] = useState<UnsplashImage[]>(randomImages);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -31,7 +44,7 @@ export default function FormPicker({ id, errors }: FormPickerProps) {
         });
 
         if (result && result.response) {
-          const newImages = result.response as Array<Record<string, any>>;
+          const newImages = result.response as UnsplashImage[];
           setImages(newImages);
         } else {
           console.log("Failed to get images from Unsplash");
