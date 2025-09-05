@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Plus, X } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
-import { forwardRef, KeyboardEvent, KeyboardEventHandler, useRef } from "react";
+import { forwardRef, KeyboardEventHandler, useRef } from "react";
 
 import { useAction } from "@/hooks/use-action";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ type CardFormProps = {
 export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
   ({ listId, enableEditing, disableEditing, isEditing }, ref) => {
     const params = useParams();
-    const formRef = useRef<HTMLFormElement>(null);
+    const formRef = useRef<HTMLFormElement>(null!);
 
     const { execute, fieldErrors } = useAction(createCard, {
       onSuccess: (data) => {
@@ -35,7 +35,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
     });
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "escape") {
+      if (e.key === "Escape") {
         disableEditing();
       }
     };

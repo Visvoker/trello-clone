@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent } from "react";
+import { useState, useRef } from "react";
 import { toast } from "sonner";
 import { useEventListener } from "usehooks-ts";
 
@@ -19,7 +19,7 @@ export default function ListHeader({ data, onAddCard }: ListHeaderProps) {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null!);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const enableEditing = () => {
@@ -59,7 +59,7 @@ export default function ListHeader({ data, onAddCard }: ListHeaderProps) {
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
-      formRef.current?.requestSubmit();
+      disableEditing();
     }
   };
 

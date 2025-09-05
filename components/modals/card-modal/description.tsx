@@ -25,7 +25,7 @@ export default function Description({ data }: DescriptionProps) {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null!);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const enableEditing = () => {
@@ -40,7 +40,7 @@ export default function Description({ data }: DescriptionProps) {
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "escape") {
+    if (e.key === "Escape") {
       disableEditing();
     }
   };
